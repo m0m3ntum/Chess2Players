@@ -147,167 +147,167 @@ bool Chessboard::CheckKing(int i,int j){
             }
 }
 
-bool Chessboard::CheckQueen(int i,int j){//ΜΠΟΡΕΙ ΝΑ ΚΑΝΕΙ ΤΙΣ ΚΙΝΗΣΕΙΣ ΤΟΥ ΠΥΡΓΟΥ ΚΑΙ ΤΟΥ ΑΞΙΩΜΑΤΙΚΟΥ (TOWER && BISHOP)
-            int temp,tempx,tempy;//βοηθητική μεταβλητή για τον έλεγχο των τετραγώνων αν έχουν αντικείμενο
-            if(curx==i){//Είναι στην ίδια γραμμή
-              if(cury-j<0){//Είναι δεξιά
-                temp=cury+1;       //Ξεκινά από μια θέση πιο δεξιά   
-                while(temp<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+bool Chessboard::CheckQueen(int i,int j){//QUUEEN CAN DO THE SAME MOVES AS TOWER AND BISHOP
+            int temp,tempx,tempy;//Help attributes, to check if there are objects between the current square and the last square
+            if(curx==i){//If i is in the same line
+              if(cury-j<0){//Right
+                temp=cury+1;       //Start one position right   
+                while(temp<j){    //Checking all squares until target square 
                      if(board[i][temp]!=0) 
                         return false;   
                      temp++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j>0 Είναι αριστερά
-                temp=cury-1;       //Ξεκινά από μια θέση πιο αριστερά
-                while(temp>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j>0 LEFT
+                temp=cury-1;       //Start one position left
+                while(temp>j){    //Checking all squares until target square 
                      if(board[i][temp]!=0) 
                         return false;   
                      temp--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ    
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go    
               }
             }
-            if(cury==j){//(chy==j) Είναι στην ίδια στήλη
-              if(curx-i<0){//Είναι πάνω
-                temp=curx+1;       //Ξεκινά από μια θέση πιο πάνω
-                while(temp<i){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+            if(cury==j){//(chy==j) The move is on the same column
+              if(curx-i<0){//Here is UP
+                temp=curx+1;       //Start one position up
+                while(temp<i){    //Checking all squares until target square 
                      if(board[temp][j]!=0) 
                         return false;   
                      temp++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chx-i>0 Είναι κάτω
-                temp=curx-1;       //Ξεκινά από μια θέση πιο κάτω
-                while(temp>i){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go 
+              }else{//chx-i>0 Here is DOWN
+                temp=curx-1;       //Start one position down
+                while(temp>i){    //Checking all squares until target square 
                      if(board[temp][j]!=0) 
                         return false;   
                      temp--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
               }    
             }     
-            if(i+j==curx+cury){//Είναι στην αριστερή διαγώνιο
-              if(cury-j>0){//Είναι πάνω αριστερά
-                tempx=curx+1;       //Ξεκινά από μια θέση πιο πάνω και αριστερά   
+            if(i+j==curx+cury){//Here we check left diagonal
+              if(cury-j>0){//If we are up and left
+                tempx=curx+1;       //Start one position up and left   
                 tempy=cury-1;
-                while(tempy>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy>j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx++;
                      tempy--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j<0 Είναι κάτω δεξιά
-                tempx=curx-1;       //Ξεκινά από μια θέση πιο αριστερά
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j<0 Here is down and right
+                tempx=curx-1;       
                 tempy=cury+1;
-                while(tempy<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy<j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx--;
                      tempy++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ    
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go    
               }
             }
-            if(i-j==curx-cury){//i-j==chx-chy Είναι στην δεξιά διαγώνιο
-              if(cury-j<0){//Είναι πάνω δεξιά
-                tempx=curx+1;       //Ξεκινά από μια θέση πιο πάνω δεξιά
+            if(i-j==curx-cury){//i-j==chx-chy Here we check right diagonal
+              if(cury-j<0){//The move is up and right
+                tempx=curx+1;       //START one position up and right
                 tempy=cury+1;
-                while(tempy<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy<j){    //Checking all squares until target square  
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx++;
                      tempy++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j>0 Είναι κάτω αριστερά
-                tempx=curx-1;       //Ξεκινά από μια θέση πιο κάτω αριστερά
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j>0 Here is down and left
+                tempx=curx-1;       //START one position DOWN and LEFT
                 tempy=cury-1;
-                while(tempy>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy>j){    //Checking all squares until target square
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx--;
                      tempy--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
               }
             }
 }
      
 bool Chessboard::CheckTower(int i,int j){
-            int temp;//βοηθητική μεταβλητή για τον έλεγχο των τετραγώνων αν έχουν αντικείμενο
-            if(curx==i){//Είναι στην ίδια γραμμή
-              if(cury-j<0){//Είναι δεξιά
-                temp=cury+1;       //Ξεκινάμε από μια θέση πιο δεξιά   
-                while(temp<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+            int temp;//Help attribute to check if there are objects in squares
+            if(curx==i){//Move is on the same line
+              if(cury-j<0){//Here is right
+                temp=cury+1;       //Start one position right   
+                while(temp<j){    //Checking all squares until target square
                      if(board[i][temp]!=0) 
                         return false;   
                      temp++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j>0 Είναι αριστερά
-                temp=cury-1;       //Ξεκινά από μια θέση πιο αριστερά
-                while(temp>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j>0 Here is left
+                temp=cury-1;       //Start one position left 
+                while(temp>j){    //Checking all squares until target square 
                      if(board[i][temp]!=0) 
                         return false;   
                      temp--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ    
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go   
               }
-            }else{//(chy==j) Είναι στην ίδια στήλη
-              if(curx-i<0){//Είναι πάνω
-                temp=curx+1;       //Ξεκινά από μια θέση πιο πάνω
-                while(temp<i){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+            }else{//(chy==j) move on the same column move
+              if(curx-i<0){//Here is up
+                temp=curx+1;       //Start one position up 
+                while(temp<i){    //Checking all squares until target square 
                      if(board[temp][j]!=0) 
                         return false;   
                      temp++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chx-i>0 Είναι κάτω
-                temp=curx-1;       //Ξεκινά από μια θέση πιο κάτω
-                while(temp>i){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                if(board[i][j]!=0){//!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chx-i>0 Here the move is down
+                temp=curx-1;       //Start one position down
+                while(temp>i){    //Checking all squares until target square  
                      if(board[temp][j]!=0) 
                         return false;   
                      temp--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
+                if(board[i][j]!=0){///!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
               }    
             }
 }
