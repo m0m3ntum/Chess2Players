@@ -313,164 +313,164 @@ bool Chessboard::CheckTower(int i,int j){
 }
      
 bool Chessboard::CheckBishop(int i,int j){
-            int tempx,tempy;//βοηθητικές μεταβλητές για τον έλεγχο των τετραγώνων αν έχουν αντικείμενο
-            if(i+j==curx+cury){//Είναι στην αριστερή διαγώνιο
-              if(cury-j>0){//Είναι πάνω αριστερά
-                tempx=curx+1;       //Ξεκινά από μια θέση πιο πάνω και αριστερά   
+            int tempx,tempy;//Help attributes to check squares if there is any object
+            if(i+j==curx+cury){//The move is on left diagonal
+              if(cury-j>0){//Up and left
+                tempx=curx+1;       //Start one position up and left   
                 tempy=cury-1;
-                while(tempy>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy>j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx++;
                      tempy--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j<0 Είναι κάτω δεξιά
-                tempx=curx-1;       //Ξεκινά από μια θέση πιο αριστερά
+                if(board[i][j]!=0){///!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j<0  Here is down right
+                tempx=curx-1;       
                 tempy=cury+1;
-                while(tempy<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy<j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx--;
                      tempy++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ    
+                if(board[i][j]!=0){///!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go   
               }
-            }else{//i-j==curx-cury Είναι στην δεξιά διαγώνιο
-              if(cury-j<0){//Είναι πάνω δεξιά
-                tempx=curx+1;       //Ξεκινά από μια θέση πιο πάνω δεξιά
+            }else{//i-j==curx-cury Here is right diagonal
+              if(cury-j<0){//Here is up and right
+                tempx=curx+1;       
                 tempy=cury+1;
-                while(tempy<j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy<j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx++;
                      tempy++;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
-              }else{//chy-j>0 Είναι κάτω αριστερά
-                tempx=curx-1;       //Ξεκινά από μια θέση πιο κάτω αριστερά
+                if(board[i][j]!=0){///!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
+              }else{//chy-j>0 Here is down and left
+                tempx=curx-1;       
                 tempy=cury-1;
-                while(tempy>j){    //Ελέγχει όλα τα τετράγωνα μέχρι πριν τον στόχο 
+                while(tempy>j){    //Checking all squares until target square 
                      if(board[tempx][tempy]!=0) 
                         return false;   
                      tempx--;
                      tempy--;
                 }
-                if(board[i][j]!=0){//!!!ΕΔΩ ΕΙΝΑΙ ΣΤΟΝ ΣΤΟΧΟ!!!Ελέγχει αν έχει κάτι στον στόχο
-                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//Αν έχουν το ίδιο χρώμα δεν μπορεί να πάει
-                  else return true;//Αν δεν έχουν το ίδιο χρώμα επιστρέφει ΟΚ
-                }else return true;//Aν δεν έχει τίποτα το τετραγωνάκι επιστρέφει ΟΚ
+                if(board[i][j]!=0){///!!!Here we are on target. Check if there is something
+                  if(board[i][j]->GetColor()==board[curx][cury]->GetColor()) return false;//If they have same color, can't go there
+                  else return true;//Else CAN go there
+                }else return true;//Here there is nothing in the square. CAN go
               }
             }           
 }
 
 bool Chessboard::CheckPawn(int i,int j){
-            if(board[curx][cury]->GetColor()){  //Για τα λευκά
-               if(j==cury){//για να πάει στην αρχή 2 βήματα μπροστά ή γενικά 1 μπροστά
-                  if(i==3 && curx==1){      //Έλεγχος αν στην αρχή προσπαθεί κίνηση 2 τετραγώνων
-                     if(board[2][cury]==0 && board[3][cury]==0)  //ελέγχει αν έχει κάτι μπροστά του   
+            if(board[curx][cury]->GetColor()){  //For white pawn
+               if(j==cury){//Move forward
+                  if(i==3 && curx==1){      //Checking if the move is 2 squares forward
+                     if(board[2][cury]==0 && board[3][cury]==0)  //Checking if there is something in front of it 
                         return true;
                      else
                         return false;
                      }
-                  if(i==curx+1){    //Έλεγχος για μια κίνηση μπροστά
-                     if(board[i][cury]==0)  //ελέγχει αν έχει κάτι μπροστά του   
+                  if(i==curx+1){    //Checking if the move is 1 square forward
+                     if(board[i][cury]==0)  //Checking if there is something in front of it    
                         return true;
                      else
                         return false;           
                   }
                 }
-               if(j==cury-1){             //Αν θέλει να πάει μπροστά αριστερά να "φάει" κάποιο αντίπαλο κομμάτι
+               if(j==cury-1){             //Here is trying to capture one piece left
                   if(board[curx+1][j]!=0){ 
                      if(board[curx+1][j]->GetColor()==BLACK)          
                         return true;
                      else
                         return false;
                      }
-                  else{ //Αν δεν έχει αντικείμενο στη θέση αριστερά μπροστά ελέγχει για en passat   
+                  else{ //If there is NOT any object then check for enpassat   
                      if(board[curx][j]!=0){
-                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==BLACK)){//Ελέγχει αν έχει 
-                           if(board[curx][j]->HasMoved()){//δίπλα του μαύρο πιόνι και έχει κάνει κίνηση 2 τετραγώνων
+                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==BLACK)){//Checking if there is any
+                           if(board[curx][j]->HasMoved()){//black pawn and has done 2 squares move
                               return true;
                            }else return false;  
                         }else return false;                      
-                     }else return false;//δεν μπορεί να κάνει την κίνηση αριστερά αριστερά
+                     }else return false;
                   }
                 }
-               if(j==cury+1){             //Αν θέλει να πάει μπροστά δεξιά να "φάει" κάποιο αντίπαλο κομμάτι
+               if(j==cury+1){             //Here is trying to capture one piece right
                   if(board[curx+1][j]!=0){ 
                      if(board[curx+1][j]->GetColor()==BLACK)          
                         return true;
                      else
                         return false;
                      }
-                  else{ //Αν δεν έχει αντικείμενο στη θέση αριστερά μπροστά ελέγχει για en passat   
+                  else{ //If there is NOT any object then check for enpassat   
                      if(board[curx][j]!=0){
-                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==BLACK)){//Ελέγχει αν έχει 
-                           if(board[curx][j]->HasMoved()){//δίπλα του μαύρο πιόνι και έχει κάνει κίνηση 2 τετραγώνων
+                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==BLACK)){//Checking if there is any 
+                           if(board[curx][j]->HasMoved()){//black pawn and has done 2 squares move
                               return true;
                            }else return false;  
                         }else return false;                      
-                     }else return false;//δεν μπορεί να κάνει την κίνηση αριστερά δεξιά
+                     }else return false;
                   }
                }
             }
-            else{    //Για τα μαύρα
-               if(j==cury){//για να πάει στην αρχή 2 βήματα μπροστά ή γενικά 1 μπροστά
-                  if(i==4 && curx==6){      //Έλεγχος αν στην αρχή προσπαθεί κίνηση 2 τετραγώνων
-                     if(board[5][cury]==0 && board[4][cury]==0)  //ελέγχει αν έχει κάτι μπροστά του   
+            else{    //For black pawns
+               if(j==cury){
+                  if(i==4 && curx==6){     //Checking if the move is 2 squares forward
+                     if(board[5][cury]==0 && board[4][cury]==0)  //Checking if there is something in front of it  
                         return true;
                      else
                         return false;
                      }
-                  if(i==curx-1){    //Έλεγχος για μια κίνηση μπροστά
-                     if(board[i][cury]==0)  //ελέγχει αν έχει κάτι μπροστά του   
+                  if(i==curx-1){    //Checking if the move is 1 square forward
+                     if(board[i][cury]==0)  //Check if there is anything in front of it  
                         return true;
                      else
                         return false;           
                   }
                 }
-               if(j==cury-1){             //Αν θέλει να πάει μπροστά αριστερά να "φάει" κάποιο αντίπαλο κομμάτι
+               if(j==cury-1){             //Here is trying to capture one piece left
                   if(board[curx-1][j]!=0){ 
                      if(board[curx-1][j]->GetColor()==WHITE)          
                         return true;
                      else
                         return false;
                      }
-                  else{ //Αν δεν έχει αντικείμενο στη θέση αριστερά μπροστά ελέγχει για en passat   
+                  else{ //If there is NOT any object then check for enpassat   
                      if(board[curx][j]!=0){
-                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==WHITE)){//Ελέγχει αν έχει
-                           if(board[curx][j]->HasMoved()){//δίπλα του μαύρο πιόνι και έχει κάνει κίνηση 2 τετραγώνων
+                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==WHITE)){//Checking if there is any 
+                           if(board[curx][j]->HasMoved()){//white pawn and has done 2 squares move
                               return true;
                            }else return false;  
                         }else return false;                      
-                     }else return false;//δεν μπορεί να κάνει την κίνηση αριστερά δεξιά
+                     }else return false;
                   }    
                 }
-               if(j==cury+1){             //Αν θέλει να πάει μπροστά δεξιά να "φάει" κάποιο αντίπαλο κομμάτι
+               if(j==cury+1){             //Here is trying to capture one piece right
                   if(board[curx-1][j]!=0){ 
                      if(board[curx-1][j]->GetColor()==WHITE)          
                         return true;
                      else
                         return false;
                      } 
-                  else{ //Αν δεν έχει αντικείμενο στη θέση αριστερά μπροστά ελέγχει για en passat   
+                  else{ //If there is NOT any object left then check for enpassat  
                      if(board[curx][j]!=0){
-                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==WHITE)){//Ελέγχει αν έχει 
-                           if(board[curx][j]->HasMoved()){//δίπλα του μαύρο πιόνι και έχει κάνει κίνηση 2 τετραγώνων
+                        if((board[curx][j]->GetType()=='P') && (board[curx][j]->GetColor()==WHITE)){//Checking if there is any 
+                           if(board[curx][j]->HasMoved()){//white pawn and has done 2 squares move
                               return true;
                            }else return false;  
                         }else return false;                      
-                     }else return false;//δεν μπορεί να κάνει την κίνηση αριστερά δεξιά
+                     }else return false;
                   }
                }
             }
@@ -488,8 +488,8 @@ Chessboard::Chessboard(){
 }
 
 void Chessboard::SetPiece(Piece * p,int i,int j){
-            board[i][j]=p;           //Ενημέρωση πίνακα            
-            board[i][j]->SetPos(i,j); //Ενημέρωση αντικειμένου
+            board[i][j]=p;           //Update table with piece           
+            board[i][j]->SetPos(i,j); //Update the position of the specified object
 }
 
 void Chessboard::PrintChessBoard(){
@@ -499,21 +499,21 @@ void Chessboard::PrintChessBoard(){
                SetConsoleTextAttribute(hConsole,0x0002 | 0x0008);
                cout<<i;
                for(int j=0;j<8;j++){
-                   if((i+j)%2==0)                //Έλεγχος για το χρώμα που έχει το κουτάκι
+                   if((i+j)%2==0)                //Check the color that the square has
                      SetConsoleTextAttribute(hConsole,BACKGROUND_BLUE);
                    else
                      SetConsoleTextAttribute(hConsole,BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
                    cout<<" ";
-                   if(board[i][j]!=0){  //Έλεγχος για το χρώμα που έχει το κομμάτι
+                   if(board[i][j]!=0){  //Check the color of the piece 
                       if(board[i][j]->GetColor()){     //Color is White
-                         if((i+j)%2==0)                //Έλεγχος για το χρώμα που έχει το κουτάκι
+                         if((i+j)%2==0)                //Check the color that the square has
                            SetConsoleTextAttribute(hConsole,BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
                          else
                            SetConsoleTextAttribute(hConsole,BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);   
                          cout<<board[i][j]->GetType();
                       }else{                            //Color is Black
                          SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-                         if((i+j)%2==0)                //Έλεγχος για το χρώμα που έχει το κουτάκι
+                         if((i+j)%2==0)                //Check the color that the square has
                            SetConsoleTextAttribute(hConsole,BACKGROUND_BLUE);
                          else
                            SetConsoleTextAttribute(hConsole,BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
@@ -523,7 +523,7 @@ void Chessboard::PrintChessBoard(){
                    }else
                       {cout<<" ";}
                    if(j==7){ 
-                     if((i+j)%2==0)                //Έλεγχος για το χρώμα που έχει το κουτάκι
+                     if((i+j)%2==0)                //Check the color that the square has
                        SetConsoleTextAttribute(hConsole,BACKGROUND_BLUE);
                      else
                        SetConsoleTextAttribute(hConsole,BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
@@ -558,9 +558,10 @@ void Chessboard::Clear(){
             play=WHITE;
 }
 
+//Here we choose the piece that is going to play
 bool Chessboard::ChoosePiece(int i,int j){
             if(board[i][j]!=0){
-               if(board[i][j]->GetColor()==play){//Εαν έχει επιλεγεί κομμάτι από τα δικά του κρατά τις συντεταγμένες του
+               if(board[i][j]->GetColor()==play){//If the selected object has the color of the player, then keep x,y
                   curx=i;
                   cury=j;
                   return true;
@@ -569,7 +570,7 @@ bool Chessboard::ChoosePiece(int i,int j){
             return false;
 }
 
-void Chessboard::ChosenPiece(){ //Καλείτε από την PrintChessBoard και εμφανίζει τι είναι και που βρίσκεται 
+void Chessboard::ChosenPiece(){ //PrintChessBoard calls this function and prints what object is selected and where it is 
             string type;                   
             switch(board[curx][cury]->GetType()){
                  case 'K' : {type="King";break;}                                   
@@ -582,12 +583,12 @@ void Chessboard::ChosenPiece(){ //Καλείτε από την PrintChessBoard �
             cout<<"\nYou choose "<<type<<" in ("<<curx<<","<<cury<<")\n";
 }
 
-bool Chessboard::IsThreated(int x,int y){//x,y μελλοντικές θέσεις
+bool Chessboard::IsThreated(int x,int y){//x,y posible position
             int i,j,tempx,tempy;
             bool tem;
             char ch;
             for(i=0;i<8;i++){
-               for(j=0;j<8;j++){//Σαρώνεται όλος ο πίνακας
+               for(j=0;j<8;j++){//Scan all the chessboard
                   if(board[i][j]!=0){
                     if(board[i][j]->GetColor()!=play){
                       ch=board[i][j]->GetType();
