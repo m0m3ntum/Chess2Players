@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     Tower blacktr(BLACK),blacktl(BLACK);
     Pawn bp1(BLACK),bp2(BLACK),bp3(BLACK),bp4(BLACK),bp5(BLACK),bp6(BLACK),bp7(BLACK),bp8(BLACK);
     Chessboard cb;
-    //Arxikopoiisi
+    //Initialization
     cb.SetPiece(&wp1,1,0);
     cb.SetPiece(&wp2,1,1);
     cb.SetPiece(&wp3,1,2);
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
     cb.SetPiece(&blackbr,7,5);
     cb.SetPiece(&blackhr,7,6);
     cb.SetPiece(&blacktr,7,7);
-    //Telos arxikopoiisis
+    //End Init
     
-    /*cb.SetPiece(&bp5,3,3);        //Παράδειγμα λειτουργίας enpassant
+    /*cb.SetPiece(&bp5,3,3);        //Example enpassant
     cb.SetPiece(&wp5,1,2);
     cb.SetPiece(&wp5,1,4);*/
-    //cb.SetPiece(&whitetr,7,7);   //Παράδειγμα λειτουργίας promotion...(Αλλαγή πιονιού σε ότι θέλει) 
+    //cb.SetPiece(&whitetr,7,7);   //Example promotion... 
     //cb.SetPiece(&bp5,1,4);
     /*cb.SetPiece(&whitek,0,4);
     cb.SetPiece(&whitetr,0,7);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     int cho,cho2,result;
     char chos[5];
     do{ 
-    //Επιλογή κομματιού
+    //Choose a piece to play
      do{         
        do{
           system("cls");
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
           cho2=atoi(chos);
        }while((cho<0 || cho>7) && (cho2<0 || cho2>7));
      }while(cb.ChoosePiece(cho,cho2)==false);
-    //Επιλογή νέας θέσης 
+    //Select new position
      do{
        do{
           system("cls");
@@ -95,12 +95,12 @@ int main(int argc, char *argv[])
           cho2=atoi(chos);
        }while((cho<0 || cho>7) && (cho2<0 || cho2>7));
      }while(cb.CheckMove(cho,cho2)==false);
-     //Κίνηση κομματιού
+     //Move piece
      result=cb.Move(cho,cho2); 
      system("cls");
      cb.PrintChessBoard();
    }while(result==0);
-//Το παιχνίδι τελειώνει με νικητή τον... 
+//The game ends with winner... 
    system("cls");              
    if(result==1)              
      cout<<"Black player WINS!!!!!!";            
