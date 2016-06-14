@@ -477,7 +477,7 @@ bool Chessboard::CheckPawn(int i,int j){
 }
 //-----END PRIVATE FUNCTIONS OF Checkboard-----//
 
-
+//Constructor
 Chessboard::Chessboard(){
             play=WHITE;
             curx=-1;
@@ -487,11 +487,13 @@ Chessboard::Chessboard(){
                    board[i][j]=0;                  
 }
 
+//Put a piece on chessboard
 void Chessboard::SetPiece(Piece * p,int i,int j){
             board[i][j]=p;           //Update table with piece           
             board[i][j]->SetPos(i,j); //Update the position of the specified object
 }
 
+//Print chessboard on cmd
 void Chessboard::PrintChessBoard(){
             HANDLE hConsole;
             hConsole = GetStdHandle (STD_OUTPUT_HANDLE);
@@ -546,6 +548,7 @@ void Chessboard::PrintChessBoard(){
             SetConsoleTextAttribute(hConsole,FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 }
 
+//Clear all objects from chessboard
 void Chessboard::Clear(){
             for(int i=0;i<8;i++){
                for(int j=0;j<8;j++){
@@ -570,7 +573,8 @@ bool Chessboard::ChoosePiece(int i,int j){
             return false;
 }
 
-void Chessboard::ChosenPiece(){ //PrintChessBoard calls this function and prints what object is selected and where it is 
+//PrintChessBoard calls this function and prints what object is selected and where it is 
+void Chessboard::ChosenPiece(){ 
             string type;                   
             switch(board[curx][cury]->GetType()){
                  case 'K' : {type="King";break;}                                   
@@ -583,87 +587,88 @@ void Chessboard::ChosenPiece(){ //PrintChessBoard calls this function and prints
             cout<<"\nYou choose "<<type<<" in ("<<curx<<","<<cury<<")\n";
 }
 
+//Function that checks if a square is threaten or not. Scan all chessboard and checks if any piece threats the selected square
 bool Chessboard::IsThreated(int x,int y){//x,y posible position
             int i,j,tempx,tempy;
             bool tem;
             char ch;
             for(i=0;i<8;i++){
                for(j=0;j<8;j++){//Scan all the chessboard
-                  if(board[i][j]!=0){
-                    if(board[i][j]->GetColor()!=play){
-                      ch=board[i][j]->GetType();
-                      if((ch=='K') || (ch=='H')){
-                         tem=board[i][j]->CheckMove(x,y);
+                  if(board[i][j]!=0){ //Find piece
+                    if(board[i][j]->GetColor()!=play){ //If color of found piece is not the same with the player who plays
+                      ch=board[i][j]->GetType(); //Read the type of object
+                      if((ch=='K') || (ch=='H')){ //if King or Horse found
+                         tem=board[i][j]->CheckMove(x,y); //Check if can go to the selected position
                       }   
-                      if(ch=='P'){//αν είναι πιόνι ρώταμε αν απειλεί ένα τετράγωνο μπροστά του τότε δεν απειλεί
+                      if(ch=='P'){//Here Pawns are checked
                            if(((y==board[i][j]->Gety()) && (x==board[i][j]->Getx()+1))  
                              ||  ((y==board[i][j]->Gety()) && (x==board[i][j]->Getx()-1)))
                              {tem=false;}//δεν απειλεί
                            else tem=board[i][j]->CheckMove(x,y);
                       }
-                      if(tem==true) return true;//αν απειλούν επιστρέφει ότι απειλείται
+                      if(tem==true) return true;//Treaten
                     }
                   }                 
                }                 
             }
-            //εδω θα γινεται έλεγχος για queen tower
+            //Here queen tower are checked
             i=x+1;
             j=y;
-            while(i<8){//έλεγχος στην στήλη(πάνω)
+            while(i<8){//check column up
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='T') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else i=15;//βγαίνει από την επανάληψη
+                  else i=15;//END WHILE
                }
                i++;    
             }
             
             i=x-1;
             j=y;
-            while(i>-1){//έλεγχος στην στήλη(κάτω)
+            while(i>-1){//check column down
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='T') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else i=-15;//βγαίνει από την επανάληψη
+                  else i=-15;//END WHILE
                }
                i--;
             }    
             
             i=x;
             j=y+1;
-            while(j<8){//έλεγχος στην γραμμή(δεξιά)
+            while(j<8){//check row right
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='T') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else j=15;//βγαίνει από την επανάληψη
+                  else j=15;//END WHILE
                }
                j++;
             }
 
             i=x;
             j=y-1;
-            while(j>-1){//έλεγχος στην γραμμή(αριστερά)
+            while(j>-1){//check row left
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='T') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else j=-15;//βγαίνει από την επανάληψη
+                  else j=-15;//END WHILE
                }
                j--;
             }
             
-            //εδω θα γινεται έλεγχος για queen bishop
+            //Here Bishop is checked
             i=x+1;
             j=y-1;
-            while((i<8) && (j>-1)){//έλεγχος στην αριστερή διαγώνιο (πάνω)
+            while((i<8) && (j>-1)){//Check left diagonal up
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='B') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else {i=15;j=-15;}//βγαίνει από την επανάληψη
+                  else {i=15;j=-15;}//END WHILE
                }
                i++;
                j--;
@@ -671,12 +676,12 @@ bool Chessboard::IsThreated(int x,int y){//x,y posible position
             
             i=x-1;
             j=y+1;
-            while((i>-1) && (j<8)){//έλεγχος στην αριστερή διαγώνιο (κάτω)
+            while((i>-1) && (j<8)){//Check left diagonal down
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='B') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else {i=-15;j=15;}//βγαίνει από την επανάληψη
+                  else {i=-15;j=15;}//END WHILE
                }
                i--;
                j++;
@@ -684,12 +689,12 @@ bool Chessboard::IsThreated(int x,int y){//x,y posible position
             
             i=x+1;
             j=y+1;
-            while((i<8) && (j<8)){//έλεγχος στην δεξιά διαγώνιο (πάνω)
+            while((i<8) && (j<8)){//Check right diagonal up
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='B') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else {i=15;j=15;}//βγαίνει από την επανάληψη
+                  else {i=15;j=15;}//END WHILE
                }
                i++;
                j++;
@@ -697,18 +702,18 @@ bool Chessboard::IsThreated(int x,int y){//x,y posible position
             
             i=x-1;
             j=y-1;
-            while((i>-1) && (j>-1)){//έλεγχος στην δεξιά διαγώνιο (κάτω)
+            while((i>-1) && (j>-1)){//Check right diagonal down
                if(board[i][j]!=0){
                   if((board[i][j]->GetColor()!=play) && ((board[i][j]->GetType()=='B') || (board[i][j]->GetType()=='Q'))){
                     return true;
                   }
-                  else {i=-15;j=-15;}//βγαίνει από την επανάληψη
+                  else {i=-15;j=-15;}//END WHILE
                }
                i--;
                j--;
             }
             
-            return false;//εδώ έχει περάσει όλους τους ελέγχους και αυτό σημαίνει ότι δεν απειλείται
+            return false;//Here square is not threaten
 }
 
 
@@ -724,42 +729,43 @@ bool Chessboard::CheckMove(int i,int j){
                           }
 }
 
-                                                
-int Chessboard::Move(int i,int j){//Eπιστρέφει 1 αν "φαγωθει" o λευκός βασιλιάς, 2 αν είναι ο μαύρος και 0 για άλλη περίπτωση
+              
+//This function does the moves of pieces in chessboard. If a white king captured returns 1, for black king 2, anything else 0
+int Chessboard::Move(int i,int j){
             HANDLE hConsole;
             hConsole = GetStdHandle (STD_OUTPUT_HANDLE);
             
-            if(board[i][j]!=0){
-               if(board[i][j]->GetType()=='K'){   //Aν φαγωθεί βασιλιάς τότε το παιχνίδι τελειώνει
+            if(board[i][j]!=0){//If there is a piece in the new position
+               if(board[i][j]->GetType()=='K'){   //If a King is captures the game is over
                  if(board[i][j]->GetColor()==WHITE){ 
                    SetConsoleTextAttribute(hConsole,FOREGROUND_RED | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
                    return 1;
                  }else
                    return 2;  
                }
-               board[i][j]->~Piece();//Αν εκεί που θέλει να πάει έχει κομμάτι θα καταστραφεί
+               board[i][j]->~Piece();//The existing piece is deleted from new position
             }
-            if(board[curx][cury]->GetType()=='P'){//Έλεγχος για κινήσεις πιονιών
+            if(board[curx][cury]->GetType()=='P'){//Check moves of pawns
                if(((i==curx+2) && (curx==1)) || ((i==curx-2) && (curx==6))){
-                  board[curx][cury]->ChangeMove();//Eδώ έχει κάνει κίνηση 2 τετραγώνων και ενημερώνεται το πιόνι
+                  board[curx][cury]->ChangeMove();//enpassat takes place
                }else
                /*if((i==curx+1) || (i==curx-1))*/{
-                  if(board[curx][cury]->HasMoved())//Aν κάνει γενικά μια κίνηση ελέγχει αν πιο πριν είχε κάνει διπλή κίνηση
-                     board[curx][cury]->ChangeMove();//τότε ενημερώνεται το αντικείμενο ότι δεν μπορεί να φαγωθει με enpassant      
+                  if(board[curx][cury]->HasMoved())//If pawn makes a move, we check if the pawn has done 2 square move before
+                     board[curx][cury]->ChangeMove();//then the pawn(object) is informed that cant be captured with enpassant      
                }
-               if(j==cury-1){//Αν πηγαίνει αριστερά
-                  if(board[i][j]==0){//Αν δεν έχει τίποτα εκεί που πάει τότε αριστερά enpassant                                   
+               if(j==cury-1){//If pawn goes left
+                  if(board[i][j]==0){//If there is nothing in the new position then left enpassant                                   
                      board[curx][j]->~Piece();
                      board[curx][j]=0;
                   }
                }
-               if(j==cury+1){//Αν πηγαίνει δεξιά
-                  if(board[i][j]==0)//Αν δεν έχει τίποτα εκεί που πάει τότε δεξιά enpassant                                   
+               if(j==cury+1){//If paen goes right
+                  if(board[i][j]==0)//If there is nothing in the new position then right enpassant                                   
                      board[curx][j]->~Piece();
                      board[curx][j]=0;
                }
                if(i==7){
-                   int ch;             //Aν έχει φτάσει στην άλλη μεριά λευκό πιόνι                                    
+                   int ch;             //Checking promotion of pawns(here white)                                   
                    char cho[5];
                    do{
                     cout<<"\nCHOOSE TYPE OF PROMOTION\n";
@@ -776,9 +782,9 @@ int Chessboard::Move(int i,int j){//Eπιστρέφει 1 αν "φαγωθει" 
                           case 3 : {board[curx][cury]=new Tower(WHITE);break;}
                           case 4 : {board[curx][cury]=new Horse(WHITE);break;}    
                    }//end switch
-                   cin.ignore();//Γιατί κρατάει το \n όταν επιλέγουμε πιο πάνω με την cin
-              }else{if(i==0){     //Aν έχει φτάσει στην άλλη μεριά μαύρο πιόνι
-                      int ch;             //Aν έχει φτάσει στην άλλη μεριά λευκό πιόνι                                    
+                   cin.ignore();
+              }else{if(i==0){     //Checking promotion of pawns(here black)
+                      int ch;                                    
                       char cho[5];
                       do{
                          cout<<"\nCHOOSE TYPE OF PROMOTION\n";
@@ -796,44 +802,44 @@ int Chessboard::Move(int i,int j){//Eπιστρέφει 1 αν "φαγωθει" 
                              case 3 : {board[curx][cury]=new Tower(BLACK);break;}
                              case 4 : {board[curx][cury]=new Horse(BLACK);break;}    
                          }//end switch      
-                    cin.ignore();//Γιατί κρατάει το \n όταν επιλέγουμε πιο πάνω με την cin
+                    cin.ignore();//Removing \n from cin
                     }//end if(i==0)
               }                                   
             }
-            if((board[curx][cury]->GetType()=='T') || (board[curx][cury]->GetType()=='K')){//δεξί roque 
+            if((board[curx][cury]->GetType()=='T') || (board[curx][cury]->GetType()=='K')){ //right roque 
               if((board[curx][cury]->GetType()=='K') && (i==board[curx][cury]->Getx() && j==board[curx][cury]->Gety()+2)){
                  if(play){
-                   board[0][7]->ChangeMove();//Ο πύργος κινήθηκε
+                   board[0][7]->ChangeMove();//Tower moved
                    board[0][7]->SetPos(0,5);
                    board[0][5]=board[0][7];
                    board[0][7]=0;
                  }else{
-                   board[7][7]->ChangeMove();//Ο πύργος κινήθηκε
+                   board[7][7]->ChangeMove();//Tower moved
                    board[7][7]->SetPos(7,5);
                    board[7][5]=board[7][7];
                    board[7][7]=0;    
                  } //αριστερό roque
               }else{if((board[curx][cury]->GetType()=='K') && (i==board[curx][cury]->Getx() && j==board[curx][cury]->Gety()-2))
                  if(play){
-                   board[0][0]->ChangeMove();//Ο πύργος κινήθηκε
+                   board[0][0]->ChangeMove();//Tower moved
                    board[0][0]->SetPos(0,3);
                    board[0][3]=board[0][0];
                    board[0][0]=0;
                  }else{
-                   board[7][0]->ChangeMove();//Ο πύργος κινήθηκε
+                   board[7][0]->ChangeMove();//Tower moved
                    board[7][0]->SetPos(7,3);
                    board[7][3]=board[7][0];
                    board[7][0]=0;    
                  } 
               }
-              board[curx][cury]->ChangeMove();//Ο βασιλιάς κινήθηκε
+              board[curx][cury]->ChangeMove();//King moved
             }
-            board[curx][cury]->SetPos(i,j);//Το επιλεγμένο κομμάτι "μαθαίνει" ποια είναι η νέα του θέση
-            board[i][j]=board[curx][cury]; //Μεταφέρεται το κομμάτι στη νέα του θέση 
-            board[curx][cury]=0;           //Η παλία πλέον είναι κενή
+            board[curx][cury]->SetPos(i,j);//Selected piece informed with his new position
+            board[i][j]=board[curx][cury]; //Piece moved to new position in chessboard
+            board[curx][cury]=0;           //Old position sets empty
             curx=i;
             cury=j;
-            play=!play;//Αλλάζει ο παίκτης     
+            play=!play;//Change current player
             return 0;
 }
 //-----------------------End Chessboard-----------------------//
